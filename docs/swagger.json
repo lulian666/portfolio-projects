@@ -1,0 +1,26 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "个人项目",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/v1/projects": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "项目名称",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    }
+}

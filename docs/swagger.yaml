@@ -1,0 +1,16 @@
+info:
+  contact: {}
+  title: 个人项目
+  version: "1.0"
+paths:
+  /api/v1/projects:
+    post:
+      parameters:
+      - description: 项目名称
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses: {}
+swagger: "2.0"
