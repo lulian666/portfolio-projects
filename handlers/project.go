@@ -3,16 +3,19 @@ package handlers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"portfolio/initializers"
 	"portfolio/models"
 	"portfolio/pkg"
+	"portfolio/services"
 )
 
 type ProjectHandler struct {
+	service services.ProjectService
 }
 
-func NewProjectHandler() ProjectHandler {
-	return ProjectHandler{}
+func NewProjectHandler(s services.ProjectService) ProjectHandler {
+	return ProjectHandler{
+		service: s,
+	}
 }
 
 // CreateProject
@@ -30,7 +33,7 @@ func (h ProjectHandler) CreateProject(c *gin.Context) {
 		return
 	}
 
-	err = initializers.DB.Create(&p).Error
+	err = h.service.CreateProject(&p)
 	if err != nil {
 		response.ToErrorResponse(pkg.NewError(pkg.ServerError, err.Error()))
 		return

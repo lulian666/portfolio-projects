@@ -1,4 +1,5 @@
 /.env
+portfolio
 # `go test -c` 生成的二进制文件
 *.test
 # go coverage 工具

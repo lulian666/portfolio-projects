@@ -4,7 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "portfolio/docs"
 	"portfolio/handlers"
+	"portfolio/initializers"
 	"portfolio/middleware"
+	"portfolio/services"
 )
 
 func NewRouter() *gin.Engine {
@@ -12,7 +14,8 @@ func NewRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	pHandler := handlers.NewProjectHandler()
+	pService := services.NewProjectService(initializers.DB)
+	pHandler := handlers.NewProjectHandler(pService)
 
 	apiV1 := r.Group("api/v1")
 	{
