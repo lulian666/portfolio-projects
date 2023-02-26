@@ -21,8 +21,7 @@ func NewRouter() *gin.Engine {
 	{
 		apiV1.POST("/projects", middleware.Validator(&middleware.CreateProject{}), pHandler.CreateProject)
 		apiV1.DELETE("/projects/:id", pHandler.DeleteProject)
-		apiV1.PUT("/projects/:id", pHandler.UpdateProject)
-		apiV1.PATCH("/projects/:id/state", pHandler.UpdateProject)
+		apiV1.PUT("/projects/:id", middleware.Validator(&middleware.UpdateProject{}), pHandler.UpdateProject)
 		apiV1.GET("/projects/:id", pHandler.GetProject)
 		apiV1.GET("/projects", pHandler.ListProjects)
 	}

@@ -2,7 +2,6 @@ package models
 
 import (
 	"gorm.io/gorm"
-	"portfolio/initializers"
 )
 
 type Project struct {
@@ -13,38 +12,47 @@ type Project struct {
 	Link        string
 }
 
-func (p Project) Create() error {
-	result := initializers.DB.Create(&p)
+func (p *Project) Create(db *gorm.DB) error {
+	result := db.Create(p)
 	return result.Error
 }
 
-func (p Project) List(pageOffset, pageSize int) ([]Project, error) {
+func (p *Project) List(db *gorm.DB, pageOffset, pageSize int) ([]Project, int64, error) {
 	var projects []Project
 	var err error
+
+	result := db.Find(&projects)
+	if result.Error != nil {
+		return nil, 0, err
+	}
+	totalRows := result.RowsAffected
+
 	if pageOffset >= 0 && pageSize > 0 {
-		initializers.DB.Offset(pageOffset).Limit(pageSize)
+		result = result.Offset(pageOffset).Limit(pageSize).Find(&projects)
 	}
 
 	if p.Name != "" {
-		initializers.DB.Where("name = ?", p.Name)
+		result = result.Where("name = ?", p.Name).Find(&projects)
 	}
-	if err = initializers.DB.Find(&projects).Error; err != nil {
-		return nil, err
-	}
-	return projects, err
+
+	return projects, totalRows, err
 }
 
-func (p Project) Update() error {
-	result := initializers.DB.Model(&Project{}).Where("id = ?", p.ID, 0).Updates(p)
+func (p *Project) Update(db *gorm.DB, id int) error {
+	result := db.Model(&Project{}).Where("id = ?", id).Updates(p)
+
 	return result.Error
 }
 
-func (p Project) Get() error {
-	result := initializers.DB.First(&p)
-	return result.Error
+func (p *Project) Get(db *gorm.DB, id int) (Project, error) {
+	result := db.First(&p, id)
+	if result.Error != nil {
+		return Project{}, result.Error
+	}
+	return *p, nil
 }
 
-func (p Project) Delete() error {
-	result := initializers.DB.Delete(&p)
+func (p *Project) Delete(db *gorm.DB, id int) error {
+	result := db.Delete(&p, id)
 	return result.Error
 }
