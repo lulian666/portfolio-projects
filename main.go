@@ -17,7 +17,7 @@ func init() {
 }
 
 // main
-// @title 个人项目
+// @title personal projects
 // @version 1.0
 func main() {
 	r := routers.NewRouter()

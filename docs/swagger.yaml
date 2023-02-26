@@ -1,12 +1,12 @@
 info:
   contact: {}
-  title: 个人项目
+  title: personal projects
   version: "1.0"
 paths:
   /api/v1/projects:
     post:
       parameters:
-      - description: 项目名称
+      - description: project name
         in: query
         name: name
         type: string

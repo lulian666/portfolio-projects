@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "个人项目",
+        "title": "personal projects",
         "contact": {},
         "version": "1.0"
     },
@@ -14,7 +14,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "项目名称",
+                        "description": "project name",
                         "name": "name",
                         "in": "query"
                     }

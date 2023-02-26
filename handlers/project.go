@@ -8,15 +8,19 @@ import (
 	"portfolio/pkg"
 )
 
-type Project struct {
+type ProjectHandler struct {
+}
+
+func NewProjectHandler() ProjectHandler {
+	return ProjectHandler{}
 }
 
 // CreateProject
-// @Summery 创建项目
+// @Summery create project
 // @Produce json
 // @Param name query string false "project name"
 // @Router /api/v1/projects [post]
-func CreateProject(c *gin.Context) {
+func (h ProjectHandler) CreateProject(c *gin.Context) {
 	response := pkg.NewResponse(c)
 	var p = models.Project{}
 
@@ -35,18 +39,18 @@ func CreateProject(c *gin.Context) {
 	response.ToResponse(p)
 }
 
-func DeleteProject(c *gin.Context) {
+func (h ProjectHandler) DeleteProject(c *gin.Context) {
 
 }
 
-func UpdateProject(c *gin.Context) {
+func (h ProjectHandler) UpdateProject(c *gin.Context) {
 
 }
 
-func GetProject(c *gin.Context) {
+func (h ProjectHandler) GetProject(c *gin.Context) {
 
 }
 
-func ListProjects(c *gin.Context) {
+func (h ProjectHandler) ListProjects(c *gin.Context) {
 
 }

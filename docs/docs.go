@@ -23,7 +23,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "项目名称",
+                        "description": "project name",
                         "name": "name",
                         "in": "query"
                     }
@@ -40,7 +40,7 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "个人项目",
+	Title:            "personal projects",
 	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
