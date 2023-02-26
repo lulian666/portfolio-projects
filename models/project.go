@@ -2,7 +2,20 @@ package models
 
 import (
 	"gorm.io/gorm"
+	"portfolio/pkg"
 )
+
+type SwaggerProject struct {
+	Name        string `json:"name" binding:"required,min=2,max=50"`
+	Description string `json:"description" binding:"required,min=2,max=500"`
+	SourceCode  string `json:"sourceCode" binding:"required"`
+	Link        string `json:"link" binding:"required"`
+}
+
+type SwaggerProjects struct {
+	List  []*SwaggerProject
+	Pager *pkg.Pager
+}
 
 type Project struct {
 	gorm.Model

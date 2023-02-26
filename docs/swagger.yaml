@@ -1,16 +1,164 @@
+definitions:
+  models.SwaggerProject:
+    properties:
+      description:
+        maxLength: 500
+        minLength: 2
+        type: string
+      link:
+        type: string
+      name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      sourceCode:
+        type: string
+    required:
+    - description
+    - link
+    - name
+    - sourceCode
+    type: object
+  models.SwaggerProjects:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/models.SwaggerProject'
+        type: array
+      pager:
+        $ref: '#/definitions/pkg.Pager'
+    type: object
+  pkg.Error:
+    properties:
+      code:
+        type: integer
+      details:
+        items:
+          type: string
+        type: array
+      msg:
+        type: string
+    type: object
+  pkg.Pager:
+    properties:
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total_rows:
+        type: integer
+    type: object
 info:
   contact: {}
   title: personal projects
   version: "1.0"
 paths:
   /api/v1/projects:
-    post:
+    get:
       parameters:
-      - description: project name
+      - description: page
         in: query
-        name: name
+        name: page
+        type: string
+      - description: page size
+        in: query
+        name: page_size
         type: string
       produces:
       - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            items:
+              $ref: '#/definitions/models.SwaggerProjects'
+            type: array
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/pkg.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/pkg.Error'
+      tags:
+      - projects
+    post:
+      parameters:
+      - description: project
+        in: body
+        name: project
+        schema:
+          $ref: '#/definitions/models.SwaggerProject'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/models.SwaggerProject'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/pkg.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/pkg.Error'
+      tags:
+      - projects
+  /api/v1/projects/{id}:
+    delete:
+      parameters:
+      - description: project id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
       responses: {}
+      tags:
+      - projects
+    get:
+      parameters:
+      - description: project id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      tags:
+      - projects
+    put:
+      parameters:
+      - description: project id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: project
+        in: body
+        name: project
+        schema:
+          $ref: '#/definitions/models.SwaggerProject'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/models.SwaggerProject'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/pkg.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/pkg.Error'
+      tags:
+      - projects
 swagger: "2.0"

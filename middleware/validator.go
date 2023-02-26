@@ -13,10 +13,10 @@ type CreateProject struct {
 }
 
 type UpdateProject struct {
-	Name        string `json:"name" binding:"min=2,max=50"`
-	Description string `json:"description"`
-	SourceCode  string `json:"sourceCode"`
-	Link        string `json:"link"`
+	Name        string `json:"name" binding:"required,min=2,max=50"`
+	Description string `json:"description" binding:"required,min=2,max=500"`
+	SourceCode  string `json:"sourceCode" binding:"required"`
+	Link        string `json:"link" binding:"required"`
 }
 
 func validate[T any](c *gin.Context, v T) {

@@ -19,9 +19,13 @@ func NewProjectHandler(s services.ProjectService) ProjectHandler {
 }
 
 // CreateProject
+// @Tags projects
 // @Summery create project
 // @Produce json
-// @Param name query string false "project name"
+// @Param project body models.SwaggerProject false "project"
+// @Success 200 {object} models.SwaggerProject "成功"
+// @Failure 400 {object} pkg.Error "请求错误"
+// @Failure 500 {object} pkg.Error "内部错误"
 // @Router /api/v1/projects [post]
 func (h ProjectHandler) CreateProject(c *gin.Context) {
 	response := pkg.NewResponse(c)
@@ -42,6 +46,12 @@ func (h ProjectHandler) CreateProject(c *gin.Context) {
 	response.ToResponse(p)
 }
 
+// DeleteProject
+// @Tags projects
+// @Summery delete project
+// @Produce json
+// @Param id path int true "project id"
+// @Router /api/v1/projects/{id} [delete]
 func (h ProjectHandler) DeleteProject(c *gin.Context) {
 	response := pkg.NewResponse(c)
 	id := c.Param("id")
@@ -58,6 +68,16 @@ func (h ProjectHandler) DeleteProject(c *gin.Context) {
 	response.ToResponse(res)
 }
 
+// UpdateProject
+// @Tags projects
+// @Summery update project
+// @Produce json
+// @Param id path int true "project id"
+// @Param project body models.SwaggerProject false "project"
+// @Success 200 {object} models.SwaggerProject "成功"
+// @Failure 400 {object} pkg.Error "请求错误"
+// @Failure 500 {object} pkg.Error "内部错误"
+// @Router /api/v1/projects/{id} [put]
 func (h ProjectHandler) UpdateProject(c *gin.Context) {
 	response := pkg.NewResponse(c)
 	id := c.Param("id")
@@ -78,6 +98,12 @@ func (h ProjectHandler) UpdateProject(c *gin.Context) {
 	response.ToResponse(p)
 }
 
+// GetProject
+// @Tags projects
+// @Summery get project
+// @Produce json
+// @Param id path int true "project id"
+// @Router /api/v1/projects/{id} [get]
 func (h ProjectHandler) GetProject(c *gin.Context) {
 	response := pkg.NewResponse(c)
 	id := c.Param("id")
@@ -89,6 +115,16 @@ func (h ProjectHandler) GetProject(c *gin.Context) {
 	response.ToResponse(p)
 }
 
+// ListProjects
+// @Tags projects
+// @Summery list project
+// @Produce json
+// @Param page query string false "page"
+// @Param page_size query string false "page size"
+// @Success 200 {array} models.SwaggerProjects "成功"
+// @Failure 400 {object} pkg.Error "请求错误"
+// @Failure 500 {object} pkg.Error "内部错误"
+// @Router /api/v1/projects [get]
 func (h ProjectHandler) ListProjects(c *gin.Context) {
 	response := pkg.NewResponse(c)
 	var p = models.Project{}
